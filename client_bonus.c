@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:17:37 by welow             #+#    #+#             */
-/*   Updated: 2024/01/31 00:06:48 by welow            ###   ########.fr       */
+/*   Updated: 2024/01/31 00:46:19 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+void	message(int signum)
+{
+	if (signum == SIGUSR1)
+		ft_printf("message received\n");
+	else
+		ft_printf("message received\n");
+}
 
 void	send_char(pid_t pid, char c)
 {
@@ -19,11 +27,11 @@ void	send_char(pid_t pid, char c)
 	bit = 0;
 	while (bit < 8)
 	{
-		if (c & (0x01 << bit))
+		if ((c & (0x01 << bit)) != 0)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(100);
+		usleep(1000);
 		bit++;
 	}
 }
@@ -39,7 +47,10 @@ int	main(int ac, char **av)
 	pid = ft_atoi(av[1]);
 	while (av[2][i] != '\0')
 	{
-		send_char(pid, av[2][i++]);
+		signal(SIGUSR1, message);
+		signal(SIGUSR2, message);
+		send_char(pid, av[2][i]);
+		i++;
 	}
 	send_char(pid, '\n');
 	return (0);
