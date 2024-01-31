@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:17:37 by welow             #+#    #+#             */
-/*   Updated: 2024/01/31 00:46:19 by welow            ###   ########.fr       */
+/*   Updated: 2024/01/31 15:37:44 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+/*
+	signum refer to SIGUSR1 or SIGUSR2
+*/
 void	message(int signum)
 {
 	if (signum == SIGUSR1)
@@ -20,7 +23,7 @@ void	message(int signum)
 		ft_printf("message received\n");
 }
 
-void	send_char(pid_t pid, char c)
+void	send_char_to_bit(pid_t pid, char c)
 {
 	int	bit;
 
@@ -36,6 +39,9 @@ void	send_char(pid_t pid, char c)
 	}
 }
 
+/*
+	get the signal from the server after they print out and excute message
+*/
 int	main(int ac, char **av)
 {
 	int	pid;
@@ -49,9 +55,9 @@ int	main(int ac, char **av)
 	{
 		signal(SIGUSR1, message);
 		signal(SIGUSR2, message);
-		send_char(pid, av[2][i]);
+		send_char_to_bit(pid, av[2][i]);
 		i++;
 	}
-	send_char(pid, '\n');
+	send_char_to_bit(pid, '\n');
 	return (0);
 }
