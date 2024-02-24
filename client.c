@@ -30,17 +30,26 @@ void	send_char_to_bit(pid_t pid, char c)
 
 int	main(int ac, char **av)
 {
-	int	pid;
-	int	i;
+	int	  pid;
+	int	  i;
+  char  *arg;
+	  
 
-	if (ac != 3)
+	if (ac <= 2)
 		ft_printf("wrong argument\n");
-	i = 0;
+	i = 2;
 	pid = ft_atoi(av[1]);
-	while (av[2][i] != '\0')
-	{
-		send_char_to_bit(pid, av[2][i++]);
-	}
+  while (av[i] != NULL)
+  {
+    arg = av[i];
+    while (*arg)
+    {
+      send_char_to_bit(pid, *arg++);
+    }
+    if (av[i + 1] != NULL)
+      send_char_to_bit(pid, ' ');
+    i++;
+  }
 	send_char_to_bit(pid, '\n');
 	return (0);
 }
