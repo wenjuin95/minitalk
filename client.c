@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:17:37 by welow             #+#    #+#             */
-/*   Updated: 2024/01/31 14:15:25 by welow            ###   ########.fr       */
+/*   Updated: 2024/02/25 00:23:00 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	send_char_to_bit(pid_t pid, char c)
+static void	send_char_to_bit(pid_t pid, char c)
 {
 	int	bit;
 
@@ -30,26 +30,25 @@ void	send_char_to_bit(pid_t pid, char c)
 
 int	main(int ac, char **av)
 {
-	int	  pid;
-	int	  i;
-  char  *arg;
-	  
+	int		pid;
+	int		i;
+	char	*arg;
 
 	if (ac <= 2)
 		ft_printf("wrong argument\n");
 	i = 2;
 	pid = ft_atoi(av[1]);
-  while (av[i] != NULL)
-  {
-    arg = av[i];
-    while (*arg)
-    {
-      send_char_to_bit(pid, *arg++);
-    }
-    if (av[i + 1] != NULL)
-      send_char_to_bit(pid, ' ');
-    i++;
-  }
+	while (av[i] != NULL)
+	{
+		arg = av[i];
+		while (*arg)
+		{
+			send_char_to_bit(pid, *arg++);
+		}
+		if (av[i + 1] != NULL)
+			send_char_to_bit(pid, ' ');
+		i++;
+	}
 	send_char_to_bit(pid, '\n');
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:17:37 by welow             #+#    #+#             */
-/*   Updated: 2024/01/31 15:37:44 by welow            ###   ########.fr       */
+/*   Updated: 2024/02/25 00:39:02 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 /*
 	signum refer to SIGUSR1 or SIGUSR2
 */
-void	message(int signum)
+static void	message(int signum)
 {
 	if (signum == SIGUSR1)
 		ft_printf("message received\n");
-	else
-		ft_printf("message received\n");
+
 }
 
-void	send_char_to_bit(pid_t pid, char c)
+static void	send_char_to_bit(pid_t pid, char c)
 {
 	int	bit;
 
@@ -44,18 +43,25 @@ void	send_char_to_bit(pid_t pid, char c)
 */
 int	main(int ac, char **av)
 {
-	int	pid;
-	int	i;
+	int		pid;
+	int		i;
+	char	*arg;
 
-	if (ac != 3)
+	if (ac <= 2)
 		ft_printf("wrong argument\n");
-	i = 0;
+	i = 2;
 	pid = ft_atoi(av[1]);
-	while (av[2][i] != '\0')
+	while (av[i] != NULL)
 	{
-		signal(SIGUSR1, message);
-		signal(SIGUSR2, message);
-		send_char_to_bit(pid, av[2][i]);
+		arg = av[i];
+		while (*arg)
+		{
+			signal(SIGUSR1, message);
+			signal(SIGUSR2, message);
+			send_char_to_bit(pid, *arg++);
+		}
+		if (av[i + 1] != NULL)
+			send_char_to_bit(pid, ' ');
 		i++;
 	}
 	send_char_to_bit(pid, '\n');
