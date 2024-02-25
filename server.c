@@ -18,7 +18,7 @@ static void	signal_handler(int signum)
 	static int	bit;
 
 	if (signum == SIGUSR1)
-		i |= (0x01 << bit);
+		i = i | (0x01 << bit);
 	bit++;
 	if (bit == 8)
 	{

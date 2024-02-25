@@ -19,7 +19,7 @@ static void	send_char_to_bit(pid_t pid, char c)
 	bit = 0;
 	while (bit < 8)
 	{
-		if (c & (0x01 << bit))
+		if ((c & (0x01 << bit)) == 1)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
