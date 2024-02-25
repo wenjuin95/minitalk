@@ -30,7 +30,7 @@ static void	signal_handler(int signum, siginfo_t *info, void *context)
 	bit++;
 	if (bit == 8)
 	{
-		ft_printf("%c", i);
+		write(1, &i, 1);
 		kill(info->si_pid, SIGUSR1);
 		bit = 0;
 		i = 0;

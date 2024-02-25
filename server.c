@@ -22,7 +22,7 @@ static void	signal_handler(int signum)
 	bit++;
 	if (bit == 8)
 	{
-		ft_printf("%c", i);
+		write(1, &i, 1);
 		bit = 0;
 		i = 0;
 	}
