@@ -18,8 +18,7 @@
 static void	message(int signum)
 {
 	if (signum == SIGUSR1)
-		ft_printf("message received\n");
-
+		ft_printf("char received\n");
 }
 
 static void	send_char_to_bit(pid_t pid, char c)

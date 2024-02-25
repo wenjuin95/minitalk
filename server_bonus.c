@@ -15,7 +15,7 @@
 /*
 *	info->si_pid contains the sender's pid
 *	bit is used to keep track of the current bit in the byte (8 bits in a byte)
-*	0x01 is 0000 0001
+*	0x01 is hexadecimal of 01 (0000 0001)
 *	[|] is a bitwise OR operator
 *	[<<] is a bitwise left shift operator
 */
