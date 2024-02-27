@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: welow <welow@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:17:23 by welow             #+#    #+#             */
-/*   Updated: 2024/02/25 00:24:32 by welow            ###   ########.fr       */
+/*   Updated: 2024/02/26 13:54:01 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ int	main(int ac, char **av)
 {
 	(void)av;
 	if (ac != 1)
+	{
 		ft_printf("Wrong argument\n");
+		return (1);
+	}
 	ft_printf("Server id: %d\n", getpid());
-	while (ac == 1)
+	while (1)
 	{
 		signal(SIGUSR1, signal_handler);
 		signal(SIGUSR2, signal_handler);

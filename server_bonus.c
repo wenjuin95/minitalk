@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: welow <welow@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:17:23 by welow             #+#    #+#             */
-/*   Updated: 2024/02/25 00:27:43 by welow            ###   ########.fr       */
+/*   Updated: 2024/02/26 13:59:45 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,14 @@ int	main(int ac, char **av)
 
 	(void)av;
 	if (ac != 1)
+	{
 		ft_printf("Wrong argument\n");
+		return (1);
+	}
 	ft_printf("Server id: %d\n", getpid());
 	sig.sa_sigaction = signal_handler;
 	sig.sa_flags = SA_SIGINFO;
-	while (ac == 1)
+	while (1)
 	{
 		sigaction(SIGUSR1, &sig, NULL);
 		sigaction(SIGUSR2, &sig, NULL);
