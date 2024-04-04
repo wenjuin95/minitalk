@@ -19,7 +19,7 @@ static void	send_char_to_bit(pid_t pid, char c)
 	bit = 0;
 	while (bit < 8)
 	{
-		if (c & (0x01 << bit))
+		if (c & (0x01 << bit)) //0x01 is similar to 1
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
@@ -34,7 +34,7 @@ int	main(int ac, char **av)
 	int		i;
 	char	*arg;
 
-	if (ac <= 2)
+	if (ac <= 2) //handle the argument if less then that
 	{
 		return (ft_printf("wrong argument\n"));
 	}
